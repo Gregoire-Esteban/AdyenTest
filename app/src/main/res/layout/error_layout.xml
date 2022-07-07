@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/error_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_vector"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/error_tile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:text="@{errorType.titleRes}"
+            android:textAppearance="@style/TextAppearance.AppTheme.HeadLine2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/error_icon"
+            tools:text="No network connection." />
+
+        <TextView
+            android:id="@+id/error_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{errorType.messageRes}"
+            android:textAppearance="@style/TextAppearance.AppTheme.Headline3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/error_tile"
+            tools:text="Please check your network connection and try again" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/error_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:elevation="1dp"
+            android:text="@{errorType.buttonLabelRes}"
+            android:textColor="@android:color/white"
+            app:cornerRadius="12dp"
+            app:layout_constraintEnd_toEndOf="@+id/error_message"
+            app:layout_constraintStart_toStartOf="@+id/error_message"
+            app:layout_constraintTop_toBottomOf="@+id/error_message"
+            tools:text="Network settings" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <variable
+            name="errorType"
+            type="com.adyen.android.assignment.ui.ErrorType" />
+    </data>
+</layout>

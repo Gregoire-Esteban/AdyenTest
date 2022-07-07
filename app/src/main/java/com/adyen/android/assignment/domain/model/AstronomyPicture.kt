@@ -1,5 +1,6 @@
 package com.adyen.android.assignment.domain.model
 
+import com.adyen.android.assignment.ui.adapter.AdapterItem
 import java.time.LocalDate
 
 data class AstronomyPicture(
@@ -10,4 +11,4 @@ data class AstronomyPicture(
     val mediaType: String,
     val url: String,
     val isPinned: Boolean = false
-)
+) : AdapterItem
