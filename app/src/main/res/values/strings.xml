@@ -18,4 +18,10 @@
     <string name="apply">Apply</string>
     <string name="reset">Reset</string>
     <string name="reorder_list_dialog_title">Reorder List</string>
+
+    <!-- Picture Details -->
+    <string name="additional_info1">It\'s warped.</string>
+    <string name="additional_info2">Over 200 billion stars.</string>
+    <string name="additional_info_3">It\'s really dusty and gassy.</string>
+    <string name="additional_info_4">(big) Black hole at the center</string>
 </resources>

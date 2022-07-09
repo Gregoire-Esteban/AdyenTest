@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.adyen.android.assignment.DATE_PATTERN
 import com.adyen.android.assignment.databinding.AstronomyPictureItemBinding
 import com.adyen.android.assignment.databinding.HeaderItemBinding
 import com.adyen.android.assignment.domain.model.AstronomyPicture
-import com.adyen.android.assignment.ui.adapter.AstronomyPictureAdapter.Companion.DATE_PATTERN
 import java.time.format.DateTimeFormatter
 
 class AstronomyPictureAdapter(
@@ -20,7 +20,6 @@ class AstronomyPictureAdapter(
     companion object {
         const val ITEM_TYPE__HEADER = 100
         const val ITEM_TYPE__PICTURE = 200
-        const val DATE_PATTERN = "dd/MM/yyyy"
     }
 
     override fun getItemViewType(position: Int): Int {

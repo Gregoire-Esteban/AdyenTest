@@ -37,8 +37,7 @@
                 android:elevation="1dp"
                 android:onClick="@{() -> activity.onReorderClicked()}"
                 android:text="@string/reorder_button_label"
-                android:textColor="@android:color/white"
-                app:cornerRadius="12dp"
+                style="@style/TextAppearance.AppTheme.Button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -69,7 +68,7 @@
 
         <variable
             name="activity"
-            type="com.adyen.android.assignment.ui.MainActivity" />
+            type="com.adyen.android.assignment.ui.activity.MainActivity" />
 
         <variable
             name="viewModel"

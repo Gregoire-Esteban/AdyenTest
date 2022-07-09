@@ -1,10 +1,13 @@
-package com.adyen.android.assignment.ui
+package com.adyen.android.assignment.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adyen.android.assignment.databinding.ActivityMainBinding
 import com.adyen.android.assignment.domain.model.AstronomyPicture
+import com.adyen.android.assignment.ui.ErrorType
+import com.adyen.android.assignment.ui.ReorderDialog
 import com.adyen.android.assignment.ui.adapter.AstronomyPictureAdapter
 import com.adyen.android.assignment.ui.adapter.AstronomyPictureItemCallback
 import com.adyen.android.assignment.ui.viewmodel.AstronomyListViewModel
@@ -17,10 +20,12 @@ class MainActivity : AppCompatActivity(), AstronomyPictureItemCallback {
     private var adapter: AstronomyPictureAdapter? = null
     private val dialog : ReorderDialog by lazy {
         ReorderDialog.newInstance(
-            onApplyClicked = { isSortingByDate -> viewModel.applySorting(isSortingByDate)
+            onApplyClicked = { isSortingByDate ->
+                viewModel.applySorting(isSortingByDate)
                 dialog.dismiss()
             },
-            onResetClicked = { viewModel.applySorting(true)
+            onResetClicked = {
+                viewModel.applySorting(true)
                 dialog.dismiss()
             }
         )
@@ -63,7 +68,9 @@ class MainActivity : AppCompatActivity(), AstronomyPictureItemCallback {
     }
 
     override fun onItemClicked(astronomyPicture: AstronomyPicture) {
-        // TODO("Navigate to detail screen")
+        startActivity(Intent(this, PictureDetailsActivity::class.java).apply {
+            putExtra(EXTRA__PICTURE, astronomyPicture)
+        })
     }
 
     fun onReorderClicked() {
@@ -72,5 +79,6 @@ class MainActivity : AppCompatActivity(), AstronomyPictureItemCallback {
 
     companion object {
         private const val REORDER_DIALOG = "REORDER_DIALOG"
+        private const val EXTRA__PICTURE = "EXTRA__PICTURE"
     }
 }
