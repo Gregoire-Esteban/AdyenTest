@@ -11,4 +11,11 @@
     <string name="api_error_title">Oops! Something went wrong.</string>
     <string name="api_error_message">Please refresh the page and try again.</string>
     <string name="api_error_button_label">Refresh</string>
+
+    <!-- Dialog -->
+    <string name="reorder_by_title_option">Reorder by title</string>
+    <string name="reorder_by_date_option">Reorder by date</string>
+    <string name="apply">Apply</string>
+    <string name="reset">Reset</string>
+    <string name="reorder_list_dialog_title">Reorder List</string>
 </resources>

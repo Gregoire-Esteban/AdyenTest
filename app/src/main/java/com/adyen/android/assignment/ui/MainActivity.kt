@@ -2,7 +2,6 @@ package com.adyen.android.assignment.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adyen.android.assignment.databinding.ActivityMainBinding
 import com.adyen.android.assignment.domain.model.AstronomyPicture
@@ -16,6 +15,16 @@ class MainActivity : AppCompatActivity(), AstronomyPictureItemCallback {
     private val viewModel: AstronomyListViewModel by viewModel()
     lateinit var binding: ActivityMainBinding
     private var adapter: AstronomyPictureAdapter? = null
+    private val dialog : ReorderDialog by lazy {
+        ReorderDialog.newInstance(
+            onApplyClicked = { isSortingByDate -> viewModel.applySorting(isSortingByDate)
+                dialog.dismiss()
+            },
+            onResetClicked = { viewModel.applySorting(true)
+                dialog.dismiss()
+            }
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +36,7 @@ class MainActivity : AppCompatActivity(), AstronomyPictureItemCallback {
         setContentView(binding.root)
         initUI()
         initObservables()
-        if(viewModel.elements.value == null){
+        if(viewModel.displayElements.value == null){
             viewModel.getPictureList()
         }
     }
@@ -41,7 +50,7 @@ class MainActivity : AppCompatActivity(), AstronomyPictureItemCallback {
     }
 
     private fun initObservables() {
-        viewModel.elements.observe(this, Observer {
+        viewModel.displayElements.observe(this) {
             it?.let { validItemList ->
                 if (adapter == null) {
                     adapter = AstronomyPictureAdapter(validItemList, this)
@@ -50,7 +59,7 @@ class MainActivity : AppCompatActivity(), AstronomyPictureItemCallback {
                     adapter?.updateList(validItemList)
                 }
             }
-        })
+        }
     }
 
     override fun onItemClicked(astronomyPicture: AstronomyPicture) {
@@ -58,6 +67,10 @@ class MainActivity : AppCompatActivity(), AstronomyPictureItemCallback {
     }
 
     fun onReorderClicked() {
-        // TODO : open dialog
+        dialog.show(supportFragmentManager, REORDER_DIALOG)
+    }
+
+    companion object {
+        private const val REORDER_DIALOG = "REORDER_DIALOG"
     }
 }
