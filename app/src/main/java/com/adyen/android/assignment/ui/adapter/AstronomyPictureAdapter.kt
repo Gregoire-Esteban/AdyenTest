@@ -9,13 +9,18 @@ import coil.transform.CircleCropTransformation
 import com.adyen.android.assignment.databinding.AstronomyPictureItemBinding
 import com.adyen.android.assignment.databinding.HeaderItemBinding
 import com.adyen.android.assignment.domain.model.AstronomyPicture
+import com.adyen.android.assignment.ui.adapter.AstronomyPictureAdapter.Companion.DATE_PATTERN
 import java.time.format.DateTimeFormatter
 
-class AstronomyPictureAdapter(private var elementList : List<AdapterItem>) : RecyclerView.Adapter<BaseViewHolder>(){
+class AstronomyPictureAdapter(
+    private var elementList: List<AdapterItem>,
+    private val callback: AstronomyPictureItemCallback
+) : RecyclerView.Adapter<BaseViewHolder>() {
 
     companion object {
         const val ITEM_TYPE__HEADER = 100
         const val ITEM_TYPE__PICTURE = 200
+        const val DATE_PATTERN = "dd/MM/yyyy"
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -24,9 +29,18 @@ class AstronomyPictureAdapter(private var elementList : List<AdapterItem>) : Rec
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return if (viewType == ITEM_TYPE__HEADER) {
-            HeaderViewHolder(parent.context, HeaderItemBinding.inflate(LayoutInflater.from(parent.context)))
+            HeaderViewHolder(
+                parent.context,
+                HeaderItemBinding.inflate(LayoutInflater.from(parent.context))
+            )
         } else {
-            AstronomyPictureViewHolder(AstronomyPictureItemBinding.inflate(LayoutInflater.from(parent.context)))
+            AstronomyPictureViewHolder(
+                AstronomyPictureItemBinding.inflate(
+                    LayoutInflater.from(
+                        parent.context
+                    )
+                ), callback
+            )
         }
     }
 
@@ -42,7 +56,10 @@ class AstronomyPictureAdapter(private var elementList : List<AdapterItem>) : Rec
     }
 }
 
-class AstronomyPictureViewHolder(private val binding: AstronomyPictureItemBinding) : BaseViewHolder(binding.root) {
+class AstronomyPictureViewHolder(
+    private val binding: AstronomyPictureItemBinding,
+    private val callback: AstronomyPictureItemCallback
+) : BaseViewHolder(binding.root) {
     override fun bind(element: AdapterItem) {
         if (element is AstronomyPicture) {
             with(binding) {
@@ -51,14 +68,18 @@ class AstronomyPictureViewHolder(private val binding: AstronomyPictureItemBindin
                     transformations(CircleCropTransformation())
                 }
                 pictureTitle.text = element.title
-                val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                val dateFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN)
                 pictureDate.text = element.date.format(dateFormatter)
+                root.setOnClickListener {
+                    callback.onItemClicked(element)
+                }
             }
         }
     }
 }
 
-class HeaderViewHolder(private val context: Context, private val binding: HeaderItemBinding) : BaseViewHolder(binding.root) {
+class HeaderViewHolder(private val context: Context, private val binding: HeaderItemBinding) :
+    BaseViewHolder(binding.root) {
     override fun bind(element: AdapterItem) {
         if (element is HeaderItem) {
             binding.headerTitle.text = context.getString(element.titleRes)
