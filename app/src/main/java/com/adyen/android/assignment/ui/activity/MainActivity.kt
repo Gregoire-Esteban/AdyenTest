@@ -2,7 +2,6 @@ package com.adyen.android.assignment.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adyen.android.assignment.databinding.ActivityMainBinding
 import com.adyen.android.assignment.domain.model.AstronomyPicture
@@ -13,12 +12,12 @@ import com.adyen.android.assignment.ui.adapter.AstronomyPictureItemCallback
 import com.adyen.android.assignment.ui.viewmodel.AstronomyListViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity(), AstronomyPictureItemCallback {
+class MainActivity : BaseActivity(), AstronomyPictureItemCallback {
 
     private val viewModel: AstronomyListViewModel by viewModel()
     lateinit var binding: ActivityMainBinding
     private var adapter: AstronomyPictureAdapter? = null
-    private val dialog : ReorderDialog by lazy {
+    private val dialog: ReorderDialog by lazy {
         ReorderDialog.newInstance(
             onApplyClicked = { isSortingByDate ->
                 viewModel.applySorting(isSortingByDate)
@@ -41,16 +40,26 @@ class MainActivity : AppCompatActivity(), AstronomyPictureItemCallback {
         setContentView(binding.root)
         initUI()
         initObservables()
-        if(viewModel.displayElements.value == null){
+        lifecycle.addObserver(viewModel)
+        if (viewModel.displayElements.value == null) {
             viewModel.getPictureList()
         }
+    }
+
+    override fun onDestroy() {
+        lifecycle.removeObserver(viewModel)
+        super.onDestroy()
     }
 
     private fun initUI() {
         binding.picturesList.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.errorLayout.errorButton.setOnClickListener {
-            viewModel.onErrorButtonClicked(binding.errorLayout.errorType ?: ErrorType.NO_ERROR)
+            val currentError = binding.errorLayout.errorType
+            if (currentError == ErrorType.NETWORK) {
+                openSettings()
+            }
+            viewModel.onErrorButtonClicked(currentError ?: ErrorType.NO_ERROR)
         }
     }
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <FrameLayout
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -53,9 +54,9 @@
         <include
             android:id="@+id/error_layout"
             layout="@layout/error_layout"
+            android:visibility="@{viewModel.possibleError != ErrorType.NO_ERROR ? View.VISIBLE : View.GONE }"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{viewModel.possibleError != ErrorType.NO_ERROR ? View.VISIBLE : View.GONE }"
             app:errorType="@{viewModel.possibleError}"
             tools:visibility="gone" />
     </FrameLayout>

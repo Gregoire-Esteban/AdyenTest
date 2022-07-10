@@ -9,6 +9,6 @@ enum class ErrorType(
     @StringRes val buttonLabelRes : Int,
 ) {
     NO_ERROR(R.string.api_error_title, R.string.api_error_message, R.string.api_error_message),
-    API(R.string.api_error_title, R.string.api_error_message, R.string.api_error_message),
-    NETWORK(R.string.network_error_title, R.string.network_error_message, R.string.network_error_message),
+    API(R.string.api_error_title, R.string.api_error_message, R.string.api_error_button_label),
+    NETWORK(R.string.network_error_title, R.string.network_error_message, R.string.network_error_button_label),
 }
