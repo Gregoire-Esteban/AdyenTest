@@ -10,13 +10,13 @@ and add it to `app/local.gradle` - see `local.gradle.example` for details.
 You can verify your API key works by running the `PlanetaryServiceTest`.
 
 ## Features:
-- [ ] Create a list screen of APODs ![](screens/List Screen.png):
+- [x] Create a list screen of APODs ![](screens/List Screen.png):
   * Sanitise list to ONLY show images - NOT videos.
-- [ ] Implement ordering for APODs ![](screens/Reorder Dialog.png):
+- [x] Implement ordering for APODs ![](screens/Reorder Dialog.png):
   * Order by title - ascending.
   * Order by date - descending.
-- [ ] Show a details screen with more info about a single APOD ![](screens/Detail Screen.png).
-- [ ] Implement error screens:
+- [x] Show a details screen with more info about a single APOD ![](screens/Detail Screen.png).
+- [x] Implement error screens:
   * No network connection ![](screens/Error screen network.png).
   * Api error ![](screens/Error screen.png).
 
@@ -25,10 +25,10 @@ n.b The resources folder has been updated with the appropriate colors and icons.
 ## Development Tasks:
 Tips for candidates to think about.
 
-- [ ] App to function in both portrait and landscape orientations:
+- [x] App to function in both portrait and landscape orientations:
    * Is the UI still functional - is state persisted?
    * Ensure unnecessary network calls are not made.
-- [ ] Unit tests.
+- [x] Unit tests.
 
 ## Grading:
 We are interested in:
