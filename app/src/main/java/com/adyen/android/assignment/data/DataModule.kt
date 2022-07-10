@@ -2,6 +2,7 @@ package com.adyen.android.assignment.data
 
 import com.adyen.android.assignment.BuildConfig
 import com.adyen.android.assignment.data.api.AstronomyRemoteDataSource
+import com.adyen.android.assignment.data.api.AstronomyRemoteDataSourceImpl
 import com.adyen.android.assignment.data.api.PlanetaryService
 import com.adyen.android.assignment.data.api.model.DayAdapter
 import com.adyen.android.assignment.domain.repositories.AstronomyRepository
@@ -26,7 +27,7 @@ val dataModule = module {
             .build()
     }
     single { createRetrofit(get(), get()).create(PlanetaryService::class.java) }
-    single { AstronomyRemoteDataSource(get())}
+    single <AstronomyRemoteDataSource> { AstronomyRemoteDataSourceImpl(get())}
     single { AstronomyRepository(get()) }
 }
 
