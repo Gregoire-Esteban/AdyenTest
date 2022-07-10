@@ -15,8 +15,8 @@ import java.time.format.DateTimeFormatter
 class PictureDetailsActivity : BaseActivity() {
 
     private lateinit var binding: ActivityPictureDetailsBinding
-    private var backgroundLoadingDisposable : Disposable? = null
-    private val connectionStatusProvider : ConnectionStatusProvider by inject()
+    private var backgroundLoadingDisposable: Disposable? = null
+    private val connectionStatusProvider: ConnectionStatusProvider by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

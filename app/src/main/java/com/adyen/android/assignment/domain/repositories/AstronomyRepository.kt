@@ -6,19 +6,22 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class AstronomyRepository(private val astronomyRemoteDataSource: AstronomyRemoteDataSource, private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
+class AstronomyRepository(
+    private val astronomyRemoteDataSource: AstronomyRemoteDataSource,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+) {
 
     /**
      * Get a sanitized list of [AstronomyPicture]
      */
-    suspend fun getAstronomyImageList() : Result<List<AstronomyPicture>> {
-        return withContext(dispatcher){
-             try {
+    suspend fun getAstronomyImageList(): Result<List<AstronomyPicture>> {
+        return withContext(dispatcher) {
+            try {
                 val filteredBatch = astronomyRemoteDataSource.getAPODBatch().filter {
                     it.mediaType == "image"
                 }
                 Result.success(filteredBatch)
-            } catch (t : Throwable){
+            } catch (t: Throwable) {
                 Result.failure(t)
             }
         }

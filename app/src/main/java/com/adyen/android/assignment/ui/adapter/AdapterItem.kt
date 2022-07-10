@@ -4,4 +4,4 @@ import androidx.annotation.StringRes
 
 interface AdapterItem
 
-class HeaderItem(@StringRes val titleRes : Int) : AdapterItem
+class HeaderItem(@StringRes val titleRes: Int) : AdapterItem

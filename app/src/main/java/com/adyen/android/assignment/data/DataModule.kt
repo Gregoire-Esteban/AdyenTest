@@ -27,7 +27,7 @@ val dataModule = module {
             .build()
     }
     single { createRetrofit(get(), get()).create(PlanetaryService::class.java) }
-    single <AstronomyRemoteDataSource> { AstronomyRemoteDataSourceImpl(get())}
+    single<AstronomyRemoteDataSource> { AstronomyRemoteDataSourceImpl(get()) }
     single { AstronomyRepository(get()) }
 }
 
